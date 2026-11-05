@@ -205,7 +205,7 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(0.6f)
 
                 ){
-                    //Text("Presioname")
+                    Text("Presioname")
 
 Text(if(state.isLoading) "Validando" else "Inicio sesion")
 

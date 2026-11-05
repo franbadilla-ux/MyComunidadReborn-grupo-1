@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.Grass
 import androidx.compose.material.icons.filled.LocalFireDepartment
@@ -53,58 +54,28 @@ fun DrawerMenu(
 
         //Items
 
-        LazyColumn(modifier=Modifier.weight(1f)){
 
-            item{ //item 1
+        LazyColumn(
+            modifier = Modifier.weight(1f)
+        ) {
+
+            item {
                 NavigationDrawerItem(
-                    label = {Text("Hanburguesa BBQ")},
-                    selected=false,
-                    onClick = {/*  accion */},
-                    icon={Icon(Icons.Default.LunchDining, contentDescription="BBQ")}
-                )//Fin Navigation
-            } //fin item 1
-
-
-            item{ //item 1
-                NavigationDrawerItem(
-                    label = {Text("Hanburguesa Veggie")},
-                    selected=false,
-                    onClick = {/*  accion */},
-                    icon={Icon(Icons.Default.Grass
-                        , contentDescription="Veggie")}
-                )//Fin Navigation
-            } //fin item 2
-
-            item{ //item 1
-                NavigationDrawerItem(
-                    label = {Text("Hamburguesa Picante")},
-                    selected=false,
-                    onClick = {/*  accion */},
-                    icon={Icon(Icons.Default.LocalFireDepartment
-                        , contentDescription="Picante")}
-                )//Fin Navigation
-            } //fin item 3
-
-
-            item{ //item 1
-                NavigationDrawerItem(
-                    label = {Text("Hamburguesa Clasica")},
-                    selected=false,
-                    onClick = {/*  accion */
-                    val nombre= Uri.encode("Hamburguesa Clasica")
-                    val precio="5000"
-
-                    navController.navigate("ProductoFormScreen/$nombre/$precio")
-
+                    label = { Text("Registrar oportunidad") },
+                    selected = false,
+                    onClick = {
+                        navController.navigate("oportunidad")
                     },
-                    icon={Icon(Icons.Default.Fastfood
-                        , contentDescription="Clasica")}
-                )//Fin Navigation
-            } //fin item 4
+                    icon = {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = "Registrar"
+                        )
+                    }
+                )
+            }
 
-
-
-        }//Fin Lazy
+        }
 
     }//fin iniccio columna
 
