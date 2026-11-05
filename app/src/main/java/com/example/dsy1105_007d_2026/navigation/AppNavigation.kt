@@ -10,6 +10,7 @@ import com.example.dsy1105_007d_2026.ui.screen.ResumenScreen
 import com.example.dsy1105_007d_2026.view.DrawerMenu
 import com.example.dsy1105_007d_2026.view.OportunidadFormScreen
 import com.example.dsy1105_007d_2026.viewmodel.UsuarioViewModel
+import com.example.dsy1105_007d_2026.view.ListaOportunidadesScreen
 
 @Composable
 fun AppNavigation() {
@@ -21,7 +22,8 @@ fun AppNavigation() {
     NavHost(
         navController = navController,
         //startDestination = "registro"
-        startDestination = "oportunidad"
+        //startDestination = "oportunidad"
+        startDestination = "resumen"
     ) {
         composable("registro") {
             RegistroScreen(navController, usuarioViewModel)

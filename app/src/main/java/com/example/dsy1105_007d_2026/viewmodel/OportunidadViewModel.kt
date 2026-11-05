@@ -144,7 +144,7 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
         val prioridad = x.prioridad ?: return
         val potencialComercial = x.potencialComercial ?: return
         viewModelScope.launch {
-            dao.insertar(
+            repository.insertar(
                 OportunidadEntity(
                     nombreOportunidad = x.nombreOportunidad,
                     tipo = x.tipo,

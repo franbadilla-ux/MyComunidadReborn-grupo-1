@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -38,6 +39,12 @@ fun OportunidadFormScreen(navController: NavController,
             value = estado.nombreOportunidad,
             onValueChange = viewModel::onNombreChange,
             label = { Text("Nombre Oportunidad") },
+            isError = estado.errores.errorNombre != null,
+            supportingText = {
+                estado.errores.errorNombre?.let {
+                    Text(it)
+                }
+            },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -99,6 +106,26 @@ fun OportunidadFormScreen(navController: NavController,
 
                 Text(potencial.name)
             }
+        }
+
+        //observaciones
+
+        OutlinedTextField(
+            value = estado.observaciones,
+            onValueChange = viewModel::onObservacionesChange,
+            label = {Text("Observaciones")},
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Button(
+            onClick = {
+                viewModel.saveUrSoul {
+                    navController.navigate("menu")
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Guardar oportunidad")
         }
 
 

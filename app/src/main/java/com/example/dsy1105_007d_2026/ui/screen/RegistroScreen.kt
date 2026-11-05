@@ -122,7 +122,8 @@ fun RegistroScreen(
         Button(
             onClick = {
                 viewModel.guardar {
-                    navController.navigate("resumen")
+                    //navController.navigate("resumen")
+                    navController.navigate("oportunidad")
                 }
                 /*if (viewModel.validarFormulario()) {
                     navController.navigate("resumen")

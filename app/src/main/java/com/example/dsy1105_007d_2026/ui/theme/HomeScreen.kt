@@ -190,7 +190,7 @@ fun HomeScreen(
                 vm.submit { user ->
                    // navController.navigate("muestraDatos/$user")
 
-                    navController.navigate("DrawerMenu/$user")
+                    navController.navigate("menu/$user")
 
 
                     {//inicia navegacion
