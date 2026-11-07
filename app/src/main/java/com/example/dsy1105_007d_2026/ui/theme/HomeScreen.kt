@@ -1,7 +1,6 @@
 package com.example.dsy1105_007d_2026.ui.theme
 
 
-import android.text.Layout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -40,7 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.dsy1105_007d_2026.R
-import com.example.dsy1105_007d_2026.ui.login.LoginViewModel
+import com.example.dsy1105_007d_2026.viewmodel.LoginViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)

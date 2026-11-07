@@ -8,9 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.dsy1105_007d_2026.ui.screen.RegistroScreen
 import com.example.dsy1105_007d_2026.ui.screen.ResumenScreen
 import com.example.dsy1105_007d_2026.view.DrawerMenu
-import com.example.dsy1105_007d_2026.view.OportunidadFormScreen
+import com.example.dsy1105_007d_2026.view.ProductoFormScreen
 import com.example.dsy1105_007d_2026.viewmodel.UsuarioViewModel
-import com.example.dsy1105_007d_2026.view.ListaOportunidadesScreen
 
 @Composable
 fun AppNavigation() {
@@ -21,9 +20,7 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        //startDestination = "registro"
-        //startDestination = "oportunidad"
-        startDestination = "resumen"
+        startDestination = "registro"
     ) {
         composable("registro") {
             RegistroScreen(navController, usuarioViewModel)
@@ -33,17 +30,19 @@ fun AppNavigation() {
             ResumenScreen(usuarioViewModel)
         }
 
-
         composable("menu") {
-            DrawerMenu(
-                username = "Usuario de prueba",
-                navController = navController
-            )
+            DrawerMenu(username="Prueba", navController)
         }
 
-        composable("oportunidad") {
-            OportunidadFormScreen(
-                navController = navController
+        composable("producto/{nombre}/{precio}") { backStackEntry ->
+
+            val nombre = backStackEntry.arguments?.getString("nombre") ?: ""
+            val precio = backStackEntry.arguments?.getString("precio") ?: ""
+
+            ProductoFormScreen(
+                navController = navController,
+                nombre = nombre,
+                precio = precio
             )
         }
 

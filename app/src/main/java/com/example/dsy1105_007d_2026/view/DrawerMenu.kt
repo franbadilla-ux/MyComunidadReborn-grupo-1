@@ -11,9 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Fastfood
-import androidx.compose.material.icons.filled.Grass
-import androidx.compose.material.icons.filled.LocalFireDepartment
-import androidx.compose.material.icons.filled.LunchDining
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationDrawerItem
@@ -43,7 +40,7 @@ fun DrawerMenu(
         )// Fin Box
         {// inicio contenido
             Text(
-              text="Categorias  Usuario: $username",
+                text="Categorias  Usuario: $username",
                 style= MaterialTheme.typography.headlineSmall,
                 color=MaterialTheme.colorScheme.onPrimary,
                 modifier= Modifier
@@ -75,9 +72,24 @@ fun DrawerMenu(
                 )
             }
 
+            item { //Item 4
+                NavigationDrawerItem(
+                    label = { Text("Hamburguesa clasica") },
+                    selected = false,
+                    onClick = {/* accion */
+                        val nombre = Uri.encode("Hamburguesa clasica")
+                        val precio = "5000"
+
+                        navController.navigate("producto/$nombre/$precio")
+                    },
+                    icon={Icon(Icons.Default.Fastfood
+                        , contentDescription="Registrar")}
+                )// Fin navigation
+            }//fin item 4
+
         }
 
-    }//fin iniccio columna
+    }//Fin Lazy
 
 
 }//fin Inicio drawer
@@ -90,5 +102,3 @@ fun DrawerMenuPreview(){
     val navController= rememberNavController()
     DrawerMenu(username = "Usuario Prueba",navController=navController )
 }
-
-
