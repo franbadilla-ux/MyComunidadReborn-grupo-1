@@ -101,7 +101,8 @@ class UsuarioViewModel(app: Application) : AndroidViewModel(app) {
             errores.nombre,
             errores.correo,
             errores.clave,
-            errores.direccion
+            errores.direccion,
+            errores.terminos
         ).isNotEmpty()
 
         _estado.update {

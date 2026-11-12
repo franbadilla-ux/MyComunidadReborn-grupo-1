@@ -40,6 +40,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.dsy1105_007d_2026.R
 import com.example.dsy1105_007d_2026.viewmodel.LoginViewModel
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -204,12 +208,15 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxWidth(0.6f)
 
                 ){
-                    Text("Presioname")
+                    Text("")
 
 Text(if(state.isLoading) "Validando" else "Inicio sesion")
 
 
                 } // fin boton
+                TextButton(onClick = { navController.navigate("registro") }) {
+                    Text("¿No tienes cuenta? Regístrate")
+                }
 
             }// fin Contenido
         } // Fin inner

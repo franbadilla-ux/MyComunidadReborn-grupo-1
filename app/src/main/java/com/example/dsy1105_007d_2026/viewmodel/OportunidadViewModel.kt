@@ -1,7 +1,6 @@
 package com.example.dsy1105_007d_2026.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dsy1105_007d_2026.data.local.OportunidadDatabase
 import com.example.dsy1105_007d_2026.data.local.OportunidadEntity
@@ -11,8 +10,10 @@ import com.example.dsy1105_007d_2026.data.model.PotencialComercial
 import com.example.dsy1105_007d_2026.data.model.Prioridad
 import com.example.dsy1105_007d_2026.data.repository.OportunidadRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,9 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
     private val _estado = MutableStateFlow(OportunidadUiState())
 
     val estado = _estado.asStateFlow()
+
+    val oportunidades: StateFlow<List<OportunidadEntity?>> = repository.oportunidades
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     fun onNombreChange(valor: String) {
         _estado.update {
@@ -140,25 +144,24 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
     }
 
     fun saveUrSoul(onListo: () -> Unit) {
+        if (!validarFormulario()) return
+
         val x = _estado.value
         val prioridad = x.prioridad ?: return
-        val potencialComercial = x.potencialComercial ?: return
+        val potencialCommercial = x.potencialComercial ?: return
         viewModelScope.launch {
             repository.insertar(
                 OportunidadEntity(
-                    nombreOportunidad = x.nombreOportunidad,
-                    tipo = x.tipo,
-                    descripcion = x.descripcion,
-                    fuente_de_descripcion = x.fuente_de_descripcion,
+                    nombreOportunidad = x.nombreOportunidad.trim(),
+                    tipo = x.tipo.trim(),
+                    descripcion = x.descripcion.trim(),
+                    fuente_de_descripcion = x.fuente_de_descripcion.trim(),
                     prioridad = prioridad,
-                    potencialComercial = potencialComercial,
-                    observaciones = x.observaciones
-
+                    potencialComercial = potencialCommercial,
+                    observaciones = x.observaciones.trim()
                 )
             )
             onListo()
         }
-
-
     }
 }

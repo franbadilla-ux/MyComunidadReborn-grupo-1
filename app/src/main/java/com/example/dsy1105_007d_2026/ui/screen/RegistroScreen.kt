@@ -118,6 +118,7 @@ fun RegistroScreen(
             Text("Acepto los términos y condiciones")
         }
 
+
         // Botón: enviar
         Button(
             onClick = {
