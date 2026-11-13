@@ -36,8 +36,8 @@ fun AppNavigation() {
 
         composable("menu") {
             DrawerMenu(
-                username = "Usuario de prueba",
-                navController = navController
+                username = "Prueba",
+                navController
             )
         }
 
