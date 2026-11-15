@@ -12,14 +12,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.dsy1105_007d_2026.utils.QrOportunidadParser
 import com.example.dsy1105_007d_2026.viewmodel.QrViewModel
 import com.example.dsy1105_007d_2026.utils.QrScanner
+import com.example.dsy1105_007d_2026.viewmodel.OportunidadViewModel
 
 @Composable
 fun QrScannerScreen(
     viewModel: QrViewModel,
     hasCameraPermission: Boolean,
-    onRequestPermission: () -> Unit
+    onRequestPermission: () -> Unit,
+    oportunidadViewModel: OportunidadViewModel = viewModel(),
+    onOportunidadGuardada: () -> Unit = {}
 ) {
     val qrResult by viewModel.qrResult.observeAsState()
     val context = LocalContext.current
@@ -120,6 +125,36 @@ fun QrScannerScreen(
                         qrResult!!.content,
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(16.dp)
+                    )
+                }
+                // Interpretar el contenido del QR como una oportunidad
+                val oportunidadQr = QrOportunidadParser.parse(qrResult!!.content)
+
+                if (oportunidadQr != null) {
+                    Text(
+                        "Oportunidad detectada",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text("Nombre: ${oportunidadQr.nombreOportunidad}")
+                    Text("Tipo: ${oportunidadQr.tipo}")
+                    Text("Prioridad: ${oportunidadQr.prioridad.name}")
+                    Text("Potencial: ${oportunidadQr.potencialComercial.name}")
+                    Spacer(Modifier.height(8.dp))
+                    Button(
+                        onClick = {
+                            oportunidadViewModel.guardarDesdeQr(oportunidadQr) {
+                                viewModel.clearResult()
+                                onOportunidadGuardada()
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Guardar como oportunidad")
+                    }
+                } else {
+                    Text(
+                        "Este QR no tiene el formato de una oportunidad",
+                        color = MaterialTheme.colorScheme.error
                     )
                 }
                 Spacer(Modifier.height(16.dp))

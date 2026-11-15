@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -25,8 +27,15 @@ import com.example.dsy1105_007d_2026.data.model.Prioridad
 
 @Composable
 fun OportunidadFormScreen(navController: NavController,
-                          viewModel: OportunidadViewModel = viewModel()){
+                          viewModel: OportunidadViewModel = viewModel(),
+                          oportunidadId: Long? = null){
     val estado by viewModel.estado.collectAsState()
+
+    LaunchedEffect(oportunidadId) {
+        if (oportunidadId != null) {
+            viewModel.cargarParaEditar(oportunidadId)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -34,6 +43,10 @@ fun OportunidadFormScreen(navController: NavController,
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ){
+        Text(
+            text = if (oportunidadId == null) "Nueva oportunidad" else "Editar oportunidad",
+            style = MaterialTheme.typography.headlineSmall
+        )
         //nombre oportunidad
         OutlinedTextField(
             value = estado.nombreOportunidad,
@@ -53,6 +66,8 @@ fun OportunidadFormScreen(navController: NavController,
             value = estado.tipo,
             onValueChange = viewModel::onTipoChange,
             label = {Text("Tipo de oportunidad")},
+            isError = estado.errores.errorDescripcion != null,
+            supportingText = { estado.errores.errorDescripcion?.let { Text(it) } },
             modifier = Modifier.fillMaxWidth()
         )
         //descripción
@@ -60,13 +75,18 @@ fun OportunidadFormScreen(navController: NavController,
             value = estado.descripcion,
             onValueChange = viewModel::onDescripcionChange,
             label = {Text("Descripción oportunidad")},
-            modifier = Modifier.fillMaxWidth()
+            isError = estado.errores.errorDescripcion != null,
+            supportingText = { estado.errores.errorDescripcion?.let { Text(it) } },
+            modifier = Modifier.fillMaxWidth(),
+
         )
         //Fuente de información
         OutlinedTextField(
             value = estado.fuente_de_descripcion,
             onValueChange = viewModel::onFuenteInfoChange,
             label = {Text("Fuente de la descripción")},
+            isError = estado.errores.errorFuenteInformacion != null,
+            supportingText = { estado.errores.errorFuenteInformacion?.let { Text(it) } },
             modifier = Modifier.fillMaxWidth()
         )
         //prioridad
@@ -87,6 +107,10 @@ fun OportunidadFormScreen(navController: NavController,
                 Text(prioridad.name)
             }
         }
+        estado.errores.errorPrioridad?.let {
+            Text(it, color = MaterialTheme.colorScheme.error)
+        }
+
 
         //Potencial comercial
 
@@ -107,6 +131,9 @@ fun OportunidadFormScreen(navController: NavController,
                 Text(potencial.name)
             }
         }
+        estado.errores.errorPotencialComercial?.let {
+            Text(it, color = MaterialTheme.colorScheme.error)
+        }
 
         //observaciones
 
@@ -119,13 +146,21 @@ fun OportunidadFormScreen(navController: NavController,
 
         Button(
             onClick = {
-                viewModel.saveUrSoul {
-                    navController.navigate("menu")
+                if (oportunidadId == null) {
+                    // Nueva: se va a la lista para ver el registro
+                    navController.navigate("lista") {
+                        popUpTo("oportunidad") { inclusive = true }
+                        launchSingleTop = true
+                    }
+                } else {
+                    // Editada: se vuelve a la lista
+                    navController.popBackStack()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Guardar oportunidad")
+            Text(if (oportunidadId == null) "Guardar oportunidad" else "Guardar cambios")
+            //fin Oportunidad
         }
 
 

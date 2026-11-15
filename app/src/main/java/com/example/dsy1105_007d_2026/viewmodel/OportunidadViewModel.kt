@@ -148,20 +148,59 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
 
         val x = _estado.value
         val prioridad = x.prioridad ?: return
-        val potencialCommercial = x.potencialComercial ?: return
+        val potencialComercial = x.potencialComercial ?: return
         viewModelScope.launch {
-            repository.insertar(
-                OportunidadEntity(
-                    nombreOportunidad = x.nombreOportunidad.trim(),
-                    tipo = x.tipo.trim(),
-                    descripcion = x.descripcion.trim(),
-                    fuente_de_descripcion = x.fuente_de_descripcion.trim(),
-                    prioridad = prioridad,
-                    potencialComercial = potencialCommercial,
-                    observaciones = x.observaciones.trim()
-                )
+            val oportunidad = OportunidadEntity(
+                id = x.id,
+                nombreOportunidad = x.nombreOportunidad.trim(),
+                tipo = x.tipo.trim(),
+                descripcion = x.descripcion.trim(),
+                fuente_de_descripcion = x.fuente_de_descripcion.trim(),
+                prioridad = prioridad,
+                potencialComercial = potencialComercial,
+                observaciones = x.observaciones.trim()
             )
+
+            if (x.id == 0L) {
+                repository.insertar(oportunidad)
+            } else {
+                repository.actualizar(oportunidad)
+            }
             onListo()
         }
+    }
+    // Carga una oportunidad existente en el formulario (modo editar)
+    fun cargarParaEditar(id: Long) {
+        if (_estado.value.id == id) return   // ya está cargada (evita pisar lo que el usuario escribió)
+
+        viewModelScope.launch {
+            val e = repository.obtenerPorId(id) ?: return@launch
+            _estado.value = OportunidadUiState(
+                nombreOportunidad = e.nombreOportunidad,
+                tipo = e.tipo,
+                descripcion = e.descripcion,
+                fuente_de_descripcion = e.fuente_de_descripcion,
+                prioridad = e.prioridad,
+                potencialComercial = e.potencialComercial,
+                observaciones = e.observaciones,
+                id = e.id
+            )
+        }
+    }
+
+    // Elimina una oportunidad
+    fun eliminar(oportunidad: OportunidadEntity) {
+        viewModelScope.launch {
+            repository.eliminar(oportunidad)
+        }
+    }
+
+    // Guarda directamente una oportunidad leída desde un código QR
+    fun guardarDesdeQr(oportunidad: OportunidadEntity, onListo: () -> Unit) {
+        viewModelScope.launch {
+            repository.insertar(oportunidad)
+            onListo()
+        }
+
     }
 }

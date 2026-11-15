@@ -9,6 +9,9 @@ data class OportunidadUiState (
     val potencialComercial: PotencialComercial? = null,
     val observaciones : String = "",
 
+    // 0 = oportunidad nueva, distinto de 0 = se está editando una existente
+    val id : Long = 0,
+
     //Errores del formulario
     val errores : OportunidadesErrores = OportunidadesErrores()
 
