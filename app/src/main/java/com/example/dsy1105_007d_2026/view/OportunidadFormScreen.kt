@@ -146,20 +146,23 @@ fun OportunidadFormScreen(navController: NavController,
 
         Button(
             onClick = {
-                if (oportunidadId == null) {
-                    // Nueva: se va a la lista para ver el registro
-                    navController.navigate("lista") {
-                        popUpTo("oportunidad") { inclusive = true }
-                        launchSingleTop = true
+                viewModel.saveUrSoul {
+                    // Este bloque se ejecuta SOLO si la validación pasó y ya se guardó
+                    if (oportunidadId == null) {
+                        navController.navigate("lista") {
+                            popUpTo("oportunidad") { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    } else {
+                        navController.popBackStack()
                     }
-                } else {
-                    // Editada: se vuelve a la lista
-                    navController.popBackStack()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(if (oportunidadId == null) "Guardar oportunidad" else "Guardar cambios")
+
+
             //fin Oportunidad
         }
 

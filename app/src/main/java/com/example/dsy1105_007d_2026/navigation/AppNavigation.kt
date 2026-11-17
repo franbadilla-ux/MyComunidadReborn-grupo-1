@@ -86,7 +86,7 @@ fun AppNavigation() {
         composable("qr") {
             QrRoute(navController)
         }
-        // Pide el permiso de cámara y muestra el escáner QR
+        //Pide el permiso de cámara y muestra el escáner QR
         @Composable
          fun QrRoute(navController: NavController) {
             val context = LocalContext.current
@@ -108,6 +108,12 @@ fun AppNavigation() {
                     // Después de guardar desde el QR, se muestra la lista
                     navController.navigate("lista") {
                         popUpTo("qr") { inclusive = true }
+                    }
+                },
+                onSalir = {
+                    navController.navigate("lista") {
+                        popUpTo("qr") { inclusive = true }
+                        launchSingleTop = true
                     }
                 }
             )

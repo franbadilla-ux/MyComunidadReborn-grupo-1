@@ -24,7 +24,8 @@ fun QrScannerScreen(
     hasCameraPermission: Boolean,
     onRequestPermission: () -> Unit,
     oportunidadViewModel: OportunidadViewModel = viewModel(),
-    onOportunidadGuardada: () -> Unit = {}
+    onOportunidadGuardada: () -> Unit = {},
+    onSalir: () -> Unit = {}
 ) {
     val qrResult by viewModel.qrResult.observeAsState()
     val context = LocalContext.current
@@ -167,7 +168,19 @@ fun QrScannerScreen(
                 ) {
                     Text("Escanear otro código QR")
                 }
-            }
+                // Botón salir: queda fuera del if/else, así aparece en todos los estados
+                Spacer(Modifier.height(16.dp))
+                OutlinedButton(
+                    onClick = {
+                        viewModel.clearResult()
+                        onSalir()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Salir del lector")
+                }
+            }   // <- cierre del Column
+
         }
     }
 }
