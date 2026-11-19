@@ -34,6 +34,9 @@ fun AppNavigation() {
     //  Aquí creamos el ViewModel una sola vez
     val usuarioViewModel: UsuarioViewModel = viewModel()
 
+
+
+
     NavHost(
         navController = navController,
         startDestination = "login"

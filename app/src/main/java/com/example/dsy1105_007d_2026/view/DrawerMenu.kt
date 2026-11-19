@@ -26,7 +26,8 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun DrawerMenu(
     username:String,
-    navController: NavController
+    navController: NavController,
+    perfil: String = ""
 )
 {//Inicio drawer
     Column(modifier= Modifier.fillMaxSize())
@@ -56,9 +57,43 @@ fun DrawerMenu(
             modifier = Modifier.weight(1f)
         ) {
 
+
+            if (perfil == "EJECUTIVO") {
+                item {
+                    NavigationDrawerItem(
+                        label = { Text("Registrar oportunidad") },
+                        selected = false,
+                        onClick = {
+                            navController.navigate("oportunidad")
+                        },
+                        icon = {
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = "Registrar"
+                            )
+                        }
+                    )
+                }
+            }// fin perfil
+
+            item { //Item 4
+                NavigationDrawerItem(
+                    label = { Text("Lista Oportunidades") },
+                    selected = false,
+                    onClick = {/* accion */
+                        val nombre = Uri.encode("Hamburguesa clasica")
+                        val precio = "5000"
+
+                        navController.navigate("producto/$nombre/$precio")
+                    },
+                    icon={Icon(Icons.Default.Fastfood
+                        , contentDescription="Registrar")}
+                )// Fin navigation
+            }//fin item 4
+
             item {
                 NavigationDrawerItem(
-                    label = { Text("Registrar oportunidad") },
+                    label = { Text("Gestion Actividades") },
                     selected = false,
                     onClick = {
                         navController.navigate("oportunidad")
@@ -72,22 +107,17 @@ fun DrawerMenu(
                 )
             }
 
-            item { //Item 4
-                NavigationDrawerItem(
-                    label = { Text("Hamburguesa clasica") },
-                    selected = false,
-                    onClick = {/* accion */
-                        val nombre = Uri.encode("Hamburguesa clasica")
-                        val precio = "5000"
 
-                        navController.navigate("producto/$nombre/$precio")
-                    },
-                    icon={Icon(Icons.Default.Fastfood
-                        , contentDescription="Registrar")}
-                )// Fin navigation
-            }//fin item 4
+
+
+
 
         }
+
+
+
+
+
 
     }//Fin Lazy
 

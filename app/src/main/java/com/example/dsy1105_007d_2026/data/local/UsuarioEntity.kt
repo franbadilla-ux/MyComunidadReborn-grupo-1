@@ -10,4 +10,5 @@ data class UsuarioEntity(
     val correo: String,
     val clave: String,
     val direccion: String
+
 )
