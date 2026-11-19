@@ -61,9 +61,12 @@ fun AppNavigation() {
             route = "menu/{username}",
             arguments = listOf(navArgument("username") { type = NavType.StringType })
         ) { entry ->
+            val username = entry.arguments?.getString("username").orEmpty()
+
             DrawerMenu(
-                username = entry.arguments?.getString("username").orEmpty(),
-                navController = navController
+                username = username,
+                navController = navController,
+                perfil = username
             )
         }
         composable("oportunidad") {
