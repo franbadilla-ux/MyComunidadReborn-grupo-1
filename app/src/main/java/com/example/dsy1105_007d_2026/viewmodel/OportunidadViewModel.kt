@@ -4,6 +4,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dsy1105_007d_2026.data.local.OportunidadDatabase
 import com.example.dsy1105_007d_2026.data.local.OportunidadEntity
+import com.example.dsy1105_007d_2026.data.model.EstadoOportunidad
 import com.example.dsy1105_007d_2026.data.model.OportunidadUiState
 import com.example.dsy1105_007d_2026.data.model.OportunidadesErrores
 import com.example.dsy1105_007d_2026.data.model.PotencialComercial
@@ -158,7 +159,8 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
                 fuente_de_descripcion = x.fuente_de_descripcion.trim(),
                 prioridad = prioridad,
                 potencialComercial = potencialComercial,
-                observaciones = x.observaciones.trim()
+                observaciones = x.observaciones.trim(),
+                estado = x.estado
             )
 
             if (x.id == 0L) {
@@ -183,7 +185,8 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
                 prioridad = e.prioridad,
                 potencialComercial = e.potencialComercial,
                 observaciones = e.observaciones,
-                id = e.id
+                id = e.id,
+                estado = e.estado
             )
         }
     }
@@ -195,6 +198,13 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
         }
     }
 
+    //Cambiar oportunidad
+    fun cambiarPrioridad(oportunidad: OportunidadEntity, nueva: Prioridad) {
+        viewModelScope.launch {
+            repository.actualizar(oportunidad.copy(prioridad = nueva))
+        }
+    }
+
     // Guarda directamente una oportunidad leída desde un código QR
     fun guardarDesdeQr(oportunidad: OportunidadEntity, onListo: () -> Unit) {
         viewModelScope.launch {
@@ -202,5 +212,8 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
             onListo()
         }
 
+    }
+    fun onEstadoChange(valor: EstadoOportunidad) {
+        _estado.update { it.copy(estado = valor) }
     }
 }

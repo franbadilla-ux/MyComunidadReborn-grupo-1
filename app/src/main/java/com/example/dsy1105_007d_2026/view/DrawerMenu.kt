@@ -25,7 +25,7 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun DrawerMenu(
-    username:String,
+    username: String,
     navController: NavController,
     perfil: String = ""
 )
@@ -57,8 +57,7 @@ fun DrawerMenu(
             modifier = Modifier.weight(1f)
         ) {
 
-
-            if (perfil == "EJECUTIVO") {
+            if (perfil == "ejecutivo" || perfil == "admin") {
                 item {
                     NavigationDrawerItem(
                         label = { Text("Registrar oportunidad") },
@@ -74,22 +73,41 @@ fun DrawerMenu(
                         }
                     )
                 }
-            }// fin perfil
+            }// fin ejecutivo
 
-            item { //Item 4
-                NavigationDrawerItem(
-                    label = { Text("Lista Oportunidades") },
-                    selected = false,
-                    onClick = {/* accion */
-                        val nombre = Uri.encode("Hamburguesa clasica")
-                        val precio = "5000"
+            if (perfil == "supervisor" || perfil == "admin") {
+                item {
+                    NavigationDrawerItem(
+                        label = { Text("Lista Oportunidades") },
+                        selected = false,
+                        onClick = {
+                            navController.navigate("lista")
+                        },
+                        icon = {
+                            Icon(
+                                Icons.Default.Fastfood,
+                                contentDescription = "Lista"
+                            )
+                        }
+                    )
+                }
 
-                        navController.navigate("producto/$nombre/$precio")
-                    },
-                    icon={Icon(Icons.Default.Fastfood
-                        , contentDescription="Registrar")}
-                )// Fin navigation
-            }//fin item 4
+                item {
+                    NavigationDrawerItem(
+                        label = { Text("Supervisión") },
+                        selected = false,
+                        onClick = {
+                            navController.navigate("supervision")
+                        },
+                        icon = {
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = "Supervisión"
+                            )
+                        }
+                    )
+                }
+            }// fin supervisor
 
             item {
                 NavigationDrawerItem(
@@ -101,17 +119,11 @@ fun DrawerMenu(
                     icon = {
                         Icon(
                             Icons.Default.Add,
-                            contentDescription = "Registrar"
+                            contentDescription = "Gestion"
                         )
                     }
                 )
-            }
-
-
-
-
-
-
+            }// lo ven todos
         }
 
 

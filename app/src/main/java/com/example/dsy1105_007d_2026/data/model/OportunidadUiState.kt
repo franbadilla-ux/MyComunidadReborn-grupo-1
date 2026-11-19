@@ -9,6 +9,10 @@ data class OportunidadUiState (
     val potencialComercial: PotencialComercial? = null,
     val observaciones : String = "",
 
+    // Estado de la oportunidad (por defecto, el primero)
+    val estado : EstadoOportunidad = EstadoOportunidad.EVENTO_IDENTIFICADO,
+
+
     // 0 = oportunidad nueva, distinto de 0 = se está editando una existente
     val id : Long = 0,
 

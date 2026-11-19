@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.dsy1105_007d_2026.data.model.EstadoOportunidad
 import com.example.dsy1105_007d_2026.data.model.PotencialComercial
 import com.example.dsy1105_007d_2026.data.model.Prioridad
 
@@ -143,6 +144,18 @@ fun OportunidadFormScreen(navController: NavController,
             label = {Text("Observaciones")},
             modifier = Modifier.fillMaxWidth()
         )
+        //Estado
+        Text("Estado")
+        EstadoOportunidad.entries.forEach { opcion ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(
+                    selected = estado.estado == opcion,
+                    onClick = { viewModel.onEstadoChange(opcion) }
+                )
+                Text(opcion.name)
+            }
+        }
+        //Fin Estado
 
         Button(
             onClick = {

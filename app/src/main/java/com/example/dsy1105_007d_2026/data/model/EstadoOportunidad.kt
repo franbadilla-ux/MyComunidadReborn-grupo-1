@@ -1,0 +1,11 @@
+package com.example.dsy1105_007d_2026.data.model
+
+enum class EstadoOportunidad {
+    EVENTO_IDENTIFICADO,
+    CONTACTO_PENDIENTE,
+    CONTACTO_REALIZADO,
+    PROPUESTA_ENVIADA,
+    EN_ESPERA_RESPUESTA,
+    PARTICIPACION_CONFIRMADA,
+    DESCARTADA
+}

@@ -123,6 +123,9 @@ fun ListaOportunidadesScreen(
                                         "Potencial: ${oportunidad.potencialComercial.name}",
                                 color = MaterialTheme.colorScheme.primary
                             )
+                            //Estado oportunidad
+                            Text("Estado: ${oportunidad.estado.name}")
+
                             if (oportunidad.observaciones.isNotBlank()) {
                                 Text(
                                     "Obs.: ${oportunidad.observaciones}",

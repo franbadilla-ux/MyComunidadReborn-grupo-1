@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.dsy1105_007d_2026.ui.screen.RegistroScreen
 import com.example.dsy1105_007d_2026.ui.screen.ResumenScreen
+import com.example.dsy1105_007d_2026.ui.screen.SupervisionScreen
 import com.example.dsy1105_007d_2026.ui.theme.HomeScreen
 import com.example.dsy1105_007d_2026.utils.CameraPermissionHelper
 import com.example.dsy1105_007d_2026.view.DrawerMenu
@@ -61,9 +62,12 @@ fun AppNavigation() {
             route = "menu/{username}",
             arguments = listOf(navArgument("username") { type = NavType.StringType })
         ) { entry ->
+            val username = entry.arguments?.getString("username").orEmpty()
+
             DrawerMenu(
-                username = entry.arguments?.getString("username").orEmpty(),
-                navController = navController
+                username = username,
+                navController = navController,
+                perfil = username
             )
         }
         composable("oportunidad") {
@@ -84,6 +88,9 @@ fun AppNavigation() {
 
         composable("lista") {
             ListaOportunidadesScreen(navController)
+        }
+        composable("supervision") {
+            SupervisionScreen()
         }
 
         composable("qr") {
