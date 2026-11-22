@@ -16,5 +16,10 @@ data class OportunidadEntity (
     val prioridad : Prioridad,
     val potencialComercial : PotencialComercial,
     val observaciones : String,
-    val estado : EstadoOportunidad = EstadoOportunidad.EVENTO_IDENTIFICADO
+    val estado : EstadoOportunidad = EstadoOportunidad.EVENTO_IDENTIFICADO,
+    val fecha : String = "",
+    val comuna : String = "",
+    val organizacion : String = "",
+    val contacto : String = "",
+    val publicoEsperado : String = ""
 )

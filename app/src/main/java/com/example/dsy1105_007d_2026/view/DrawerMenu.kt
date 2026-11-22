@@ -73,25 +73,23 @@ fun DrawerMenu(
                         }
                     )
                 }
-            }// fin ejecutivo
 
-            // Inicio gestiones y propuestas
-            item {
-                NavigationDrawerItem(
-                    label = { Text("Gestiones y propuestas") },
-                    selected = false,
-                    onClick = {
-                        navController.navigate("gestiones")
-                    },
-                    icon = {
-                        Icon(
-                            Icons.Default.Add,
-                            contentDescription = "Gestiones"
-                        )
-                    }
-                )
-            }
-            //Fin gestiones y propuestas
+                item {
+                    NavigationDrawerItem(
+                        label = { Text("Gestiones y propuestas") },
+                        selected = false,
+                        onClick = {
+                            navController.navigate("gestiones")
+                        },
+                        icon = {
+                            Icon(
+                                Icons.Default.Add,
+                                contentDescription = "Gestiones"
+                            )
+                        }
+                    )
+                }
+            }// fin ejecutivo
 
             if (perfil == "supervisor" || perfil == "admin") {
                 item {

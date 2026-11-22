@@ -160,7 +160,13 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
                 prioridad = prioridad,
                 potencialComercial = potencialComercial,
                 observaciones = x.observaciones.trim(),
-                estado = x.estado
+                estado = x.estado,
+                fecha = x.fecha.trim(),
+                comuna = x.comuna.trim(),
+                organizacion = x.organizacion.trim(),
+                contacto = x.contacto.trim(),
+                publicoEsperado = x.publicoEsperado.trim()
+
             )
 
             if (x.id == 0L) {
@@ -186,7 +192,12 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
                 potencialComercial = e.potencialComercial,
                 observaciones = e.observaciones,
                 id = e.id,
-                estado = e.estado
+                estado = e.estado,
+                fecha = e.fecha,
+                comuna = e.comuna,
+                organizacion = e.organizacion,
+                contacto = e.contacto,
+                publicoEsperado = e.publicoEsperado
             )
         }
     }
@@ -228,4 +239,13 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
     fun onEstadoChange(valor: EstadoOportunidad) {
         _estado.update { it.copy(estado = valor) }
     }
+    fun onFechaChange(valor: String) { _estado.update { it.copy(fecha = valor) } }
+
+    fun onComunaChange(valor: String) { _estado.update { it.copy(comuna = valor) } }
+
+    fun onOrganizacionChange(valor: String) { _estado.update { it.copy(organizacion = valor) } }
+
+    fun onContactoChange(valor: String) { _estado.update { it.copy(contacto = valor) } }
+
+    fun onPublicoChange(valor: String) { _estado.update { it.copy(publicoEsperado = valor) } }
 }

@@ -23,6 +23,9 @@ import androidx.navigation.NavController
 //Inicio cambio
 import com.example.dsy1105_007d_2026.data.local.OportunidadEntity
 import com.example.dsy1105_007d_2026.viewmodel.OportunidadViewModel
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+import com.example.dsy1105_007d_2026.data.model.EstadoOportunidad
 //fin cambio
 
 @Composable
@@ -99,7 +102,37 @@ fun ListaOportunidadesScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        var busqueda by remember { mutableStateOf("") }
+        var filtroEstado by remember { mutableStateOf<EstadoOportunidad?>(null) }
+
+        OutlinedTextField(
+            value = busqueda,
+            onValueChange = { busqueda = it },
+            label = { Text("Buscar por nombre") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            OutlinedButton(onClick = { filtroEstado = null }) {
+                Text("Todos")
+            }
+            EstadoOportunidad.entries.forEach { estado ->
+                OutlinedButton(onClick = { filtroEstado = estado }) {
+                    Text(estado.name)
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         val lista = oportunidades.filterNotNull()
+            .filter { it.nombreOportunidad.contains(busqueda, ignoreCase = true) }
+            .filter { filtroEstado == null || it.estado == filtroEstado }
 
         if (lista.isEmpty()) {
             Text("Aún no hay oportunidades registradas")
@@ -125,6 +158,11 @@ fun ListaOportunidadesScreen(
                             )
                             //Estado oportunidad
                             Text("Estado: ${oportunidad.estado.name}")
+
+                            //Fecha, organizacion y contacto
+                            Text("Fecha: ${oportunidad.fecha}  ·  Comuna: ${oportunidad.comuna}")
+                            Text("Organización: ${oportunidad.organizacion}")
+                            Text("Contacto: ${oportunidad.contacto}  ·  Público: ${oportunidad.publicoEsperado}")
 
                             if (oportunidad.observaciones.isNotBlank()) {
                                 Text(
