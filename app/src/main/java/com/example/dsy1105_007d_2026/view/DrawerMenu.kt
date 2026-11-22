@@ -75,6 +75,24 @@ fun DrawerMenu(
                 }
             }// fin ejecutivo
 
+            // Inicio gestiones y propuestas
+            item {
+                NavigationDrawerItem(
+                    label = { Text("Gestiones y propuestas") },
+                    selected = false,
+                    onClick = {
+                        navController.navigate("gestiones")
+                    },
+                    icon = {
+                        Icon(
+                            Icons.Default.Add,
+                            contentDescription = "Gestiones"
+                        )
+                    }
+                )
+            }
+            //Fin gestiones y propuestas
+
             if (perfil == "supervisor" || perfil == "admin") {
                 item {
                     NavigationDrawerItem(
@@ -114,7 +132,7 @@ fun DrawerMenu(
                     label = { Text("Gestion Actividades") },
                     selected = false,
                     onClick = {
-                        navController.navigate("oportunidad")
+                        navController.navigate("activacion")
                     },
                     icon = {
                         Icon(

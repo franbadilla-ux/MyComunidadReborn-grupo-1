@@ -16,6 +16,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.dsy1105_007d_2026.ui.screen.ActivacionScreen
+import com.example.dsy1105_007d_2026.ui.screen.GestionesScreen
 import com.example.dsy1105_007d_2026.ui.screen.RegistroScreen
 import com.example.dsy1105_007d_2026.ui.screen.ResumenScreen
 import com.example.dsy1105_007d_2026.ui.screen.SupervisionScreen
@@ -89,6 +91,14 @@ fun AppNavigation() {
         composable("lista") {
             ListaOportunidadesScreen(navController)
         }
+        composable("gestiones") {
+            GestionesScreen()
+        }
+
+        composable("activacion") {
+            ActivacionScreen()
+        }
+
         composable("supervision") {
             SupervisionScreen()
         }
