@@ -20,9 +20,10 @@ import kotlinx.coroutines.launch
 
 class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
 
-    private val dao = OportunidadDatabase.getDatabase(app).oportunidadDao()
+    private val db = OportunidadDatabase.getDatabase(app)
 
-    private val repository = OportunidadRepository(dao)
+    //El dao esta en el val de abajo repository
+    private val repository = OportunidadRepository(db.oportunidadDao(), db.historialDao())
 
     private val _estado = MutableStateFlow(OportunidadUiState())
 
@@ -165,7 +166,8 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
                 comuna = x.comuna.trim(),
                 organizacion = x.organizacion.trim(),
                 contacto = x.contacto.trim(),
-                publicoEsperado = x.publicoEsperado.trim()
+                publicoEsperado = x.publicoEsperado.trim(),
+                responsable = x.responsable
 
             )
 
@@ -197,7 +199,8 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
                 comuna = e.comuna,
                 organizacion = e.organizacion,
                 contacto = e.contacto,
-                publicoEsperado = e.publicoEsperado
+                publicoEsperado = e.publicoEsperado,
+                responsable = e.responsable
             )
         }
     }
@@ -228,6 +231,12 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
         }
     }
 
+    fun reasignar(oportunidad: OportunidadEntity, nuevo: String) {
+        viewModelScope.launch {
+            repository.actualizar(oportunidad.copy(responsable = nuevo))
+        }
+    }
+
     // Guarda directamente una oportunidad leída desde un código QR
     fun guardarDesdeQr(oportunidad: OportunidadEntity, onListo: () -> Unit) {
         viewModelScope.launch {
@@ -248,4 +257,7 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
     fun onContactoChange(valor: String) { _estado.update { it.copy(contacto = valor) } }
 
     fun onPublicoChange(valor: String) { _estado.update { it.copy(publicoEsperado = valor) } }
+
+    //Historial
+    fun historial(id: Long) = repository.historial(id)
 }

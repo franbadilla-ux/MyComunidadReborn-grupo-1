@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.dsy1105_007d_2026.data.model.Prioridad
 import com.example.dsy1105_007d_2026.viewmodel.OportunidadViewModel
+import com.example.dsy1105_007d_2026.data.model.Credential
 
 @Composable
 fun SupervisionScreen(viewModel: OportunidadViewModel = viewModel()) {
@@ -49,6 +50,18 @@ fun SupervisionScreen(viewModel: OportunidadViewModel = viewModel()) {
                                     enabled = o.prioridad != p
                                 ) {
                                     Text(p.name)
+                                }
+                            }
+                        }
+                        Text("Responsable: ${o.responsable.ifBlank { "Sin asignar" }}")
+
+                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            listOf(Credential.Ejecutivo, Credential.Supervisor).forEach { c ->
+                                OutlinedButton(
+                                    onClick = { viewModel.reasignar(o, c.username) },
+                                    enabled = o.responsable != c.username
+                                ) {
+                                    Text(c.username)
                                 }
                             }
                         }

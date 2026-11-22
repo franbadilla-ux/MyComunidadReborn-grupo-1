@@ -36,6 +36,8 @@ class OportunidadRepository(
             registrar(nueva.id, "Prioridad: ${anterior.prioridad} → ${nueva.prioridad}")
         if (anterior.observaciones != nueva.observaciones)
             registrar(nueva.id, "Resultado / observaciones actualizados")
+        if (anterior.responsable != nueva.responsable)
+            registrar(nueva.id, "Responsable: ${anterior.responsable.ifBlank { "Sin asignar" }} → ${nueva.responsable}")
     }
 
     suspend fun eliminar(oportunidad: OportunidadEntity) = dao.eliminar(oportunidad)
