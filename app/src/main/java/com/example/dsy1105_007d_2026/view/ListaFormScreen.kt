@@ -163,6 +163,7 @@ fun ListaOportunidadesScreen(
                             Text("Fecha: ${oportunidad.fecha}  ·  Comuna: ${oportunidad.comuna}")
                             Text("Organización: ${oportunidad.organizacion}")
                             Text("Contacto: ${oportunidad.contacto}  ·  Público: ${oportunidad.publicoEsperado}")
+                            Text("Responsable: ${oportunidad.responsable.ifBlank { "Sin asignar" }}")
 
                             if (oportunidad.observaciones.isNotBlank()) {
                                 Text(
@@ -179,6 +180,13 @@ fun ListaOportunidadesScreen(
                                     }
                                 ) {
                                     Text("Editar")
+                                }
+                                OutlinedButton(
+                                    onClick = {
+                                        navController.navigate("historial/${oportunidad.id}")
+                                    }
+                                ) {
+                                    Text("Historial")
                                 }
 
                                 TextButton(

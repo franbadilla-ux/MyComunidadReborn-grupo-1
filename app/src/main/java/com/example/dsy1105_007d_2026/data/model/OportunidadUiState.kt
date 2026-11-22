@@ -16,6 +16,7 @@ data class OportunidadUiState (
     val organizacion : String = "",
     val contacto : String = "",
     val publicoEsperado : String = "",
+    val responsable : String = "",
 
 
     // 0 = oportunidad nueva, distinto de 0 = se está editando una existente

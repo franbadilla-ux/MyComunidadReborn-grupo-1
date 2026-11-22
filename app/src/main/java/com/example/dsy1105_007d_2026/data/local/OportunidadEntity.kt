@@ -21,5 +21,6 @@ data class OportunidadEntity (
     val comuna : String = "",
     val organizacion : String = "",
     val contacto : String = "",
-    val publicoEsperado : String = ""
+    val publicoEsperado : String = "",
+    val responsable : String = ""
 )

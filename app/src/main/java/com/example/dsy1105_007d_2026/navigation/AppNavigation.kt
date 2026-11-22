@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.dsy1105_007d_2026.ui.screen.ActivacionScreen
 import com.example.dsy1105_007d_2026.ui.screen.GestionesScreen
+import com.example.dsy1105_007d_2026.ui.screen.HistorialScreen
 import com.example.dsy1105_007d_2026.ui.screen.RegistroScreen
 import com.example.dsy1105_007d_2026.ui.screen.ResumenScreen
 import com.example.dsy1105_007d_2026.ui.screen.SupervisionScreen
@@ -91,6 +92,14 @@ fun AppNavigation() {
         composable("lista") {
             ListaOportunidadesScreen(navController)
         }
+        //Ruta de historial
+        composable(
+            route = "historial/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) { entry ->
+            HistorialScreen(id = entry.arguments?.getLong("id") ?: 0L)
+        }//Fin ruta historial
+
         composable("gestiones") {
             GestionesScreen()
         }
