@@ -197,6 +197,18 @@ class OportunidadViewModel(app : Application) : AndroidViewModel(app) {
             repository.eliminar(oportunidad)
         }
     }
+    //Cambiar estado
+    fun cambiarEstado(oportunidad: OportunidadEntity, nuevo: EstadoOportunidad) {
+        viewModelScope.launch {
+            repository.actualizar(oportunidad.copy(estado = nuevo))
+        }
+    }
+    //Guardar resultado
+    fun guardarResultado(oportunidad: OportunidadEntity, resultado: String) {
+        viewModelScope.launch {
+            repository.actualizar(oportunidad.copy(observaciones = resultado))
+        }
+    }
 
     //Cambiar oportunidad
     fun cambiarPrioridad(oportunidad: OportunidadEntity, nueva: Prioridad) {
