@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface OportunidadDao {
 
     @Insert
-    suspend fun insertar(oportunidad : OportunidadEntity)
+    suspend fun insertar(oportunidad : OportunidadEntity) : Long
 
     @Query("SELECT * FROM oportinidades")
     fun getAll() : Flow<List<OportunidadEntity?>>

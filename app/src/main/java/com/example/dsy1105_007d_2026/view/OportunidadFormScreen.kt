@@ -90,6 +90,43 @@ fun OportunidadFormScreen(navController: NavController,
             supportingText = { estado.errores.errorFuenteInformacion?.let { Text(it) } },
             modifier = Modifier.fillMaxWidth()
         )
+
+        //Fecha
+        OutlinedTextField(
+            value = estado.fecha,
+            onValueChange = viewModel::onFechaChange,
+            label = { Text("Fecha (dd/mm/aaaa)") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        //Comuna
+        OutlinedTextField(
+            value = estado.comuna,
+            onValueChange = viewModel::onComunaChange,
+            label = { Text("Comuna") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        //Organizacion
+        OutlinedTextField(
+            value = estado.organizacion,
+            onValueChange = viewModel::onOrganizacionChange,
+            label = { Text("Organización") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        //contacto
+        OutlinedTextField(
+            value = estado.contacto,
+            onValueChange = viewModel::onContactoChange,
+            label = { Text("Contacto") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        //Publico esperado
+        OutlinedTextField(
+            value = estado.publicoEsperado,
+            onValueChange = viewModel::onPublicoChange,
+            label = { Text("Público esperado") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
         //prioridad
 
         Text("Prioridad")

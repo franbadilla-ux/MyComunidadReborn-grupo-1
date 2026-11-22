@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-@Database(entities = [OportunidadEntity::class], version = 1)
+@Database(entities = [OportunidadEntity::class, HistorialEntity::class], version = 1)
 abstract class OportunidadDatabase : RoomDatabase() {
 
     abstract fun oportunidadDao() : OportunidadDao
+    abstract fun historialDao() : HistorialDao
 
     companion object{
 

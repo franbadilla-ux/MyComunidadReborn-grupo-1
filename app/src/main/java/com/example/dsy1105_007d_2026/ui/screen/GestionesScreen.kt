@@ -47,6 +47,14 @@ fun GestionesScreen(viewModel: OportunidadViewModel = viewModel()) {
                         ) {
                             Text("Propuesta enviada")
                         }
+                        //boton confirmar
+                        Button(
+                            onClick = {
+                                viewModel.cambiarEstado(o, EstadoOportunidad.PARTICIPACION_CONFIRMADA)
+                            }
+                        ) {
+                            Text("Confirmada")
+                        }
 
                         OutlinedButton(
                             onClick = {

@@ -11,6 +11,11 @@ data class OportunidadUiState (
 
     // Estado de la oportunidad (por defecto, el primero)
     val estado : EstadoOportunidad = EstadoOportunidad.EVENTO_IDENTIFICADO,
+    val fecha : String = "",
+    val comuna : String = "",
+    val organizacion : String = "",
+    val contacto : String = "",
+    val publicoEsperado : String = "",
 
 
     // 0 = oportunidad nueva, distinto de 0 = se está editando una existente
