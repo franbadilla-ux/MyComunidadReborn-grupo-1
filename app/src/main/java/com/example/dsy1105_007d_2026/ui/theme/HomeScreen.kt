@@ -1,7 +1,7 @@
 package com.example.dsy1105_007d_2026.ui.theme
 
 
-import androidx.compose.foundation.Image
+import  androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,10 +40,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.dsy1105_007d_2026.R
 import com.example.dsy1105_007d_2026.viewmodel.LoginViewModel
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 
 
 @OptIn(ExperimentalMaterial3Api::class)
